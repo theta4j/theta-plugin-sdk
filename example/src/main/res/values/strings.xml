@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">THETA Plug-in Example</string>
+    <string name="label_dispatch_key_event">dispatchKeyEvent</string>
+    <string name="label_on_key_down_event">onKeyDown</string>
+    <string name="label_on_key_up_event">onKeyUp</string>
+    <string name="label_led">LED</string>
+    <string name="label_show_led">Show</string>
+    <string name="label_blink_led">Blink</string>
+    <string name="label_hide_led">Hide</string>
+    <string name="label_speaker">Speaker</string>
+    <string name="label_ring">Ring</string>
+    <string name="label_wifi">Wi-Fi</string>
+</resources>
