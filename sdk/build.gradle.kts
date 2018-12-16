@@ -31,7 +31,7 @@ version = "0.0.1"
 android {
     compileSdkVersion(25)
     defaultConfig {
-        minSdkVersion(25);
+        minSdkVersion(25)
     }
     compileOptions {
         setSourceCompatibility(JavaVersion.VERSION_1_8)
