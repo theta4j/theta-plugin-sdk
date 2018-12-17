@@ -98,6 +98,11 @@ class MainActivity : ThetaPluginActivity() {
         return super.onKeyUp(keyCode, event)
     }
 
+    override fun onKeyLongPress(keyCode: Int, event: KeyEvent?): Boolean {
+        text_on_key_long_press_event.text = keyCodeToLabel(keyCode)
+        return super.onKeyLongPress(keyCode, event)
+    }
+
     private fun keyActionToLabel(action: Int): String {
         return when (action) {
             KeyEvent.ACTION_DOWN -> "Down"

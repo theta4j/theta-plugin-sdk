@@ -43,6 +43,12 @@ public abstract class ThetaPluginActivity extends Activity {
 
             if (ThetaIntent.ACTION_KEY_DOWN.equals(action)) {
                 onKeyDown(keyCode, keyEvent);
+                if (keyEvent.isLongPress()) {
+                    onKeyLongPress(keyCode, keyEvent);
+                    if (keyCode == ThetaIntent.KEY_CODE_MODE) {
+                        onFinishPluginRequested();
+                    }
+                }
             } else if (ThetaIntent.ACTION_KEY_UP.equals(action)) {
                 onKeyUp(keyCode, keyEvent);
             } else {
@@ -79,6 +85,18 @@ public abstract class ThetaPluginActivity extends Activity {
         super.onPause();
 
         unregisterReceiver(mKeyEventReceiver);
+    }
+
+    // Key Event
+
+    /**
+     * Called when a mode button long pressed.
+     * Default implementation finishes plugin.
+     * Override this method if you need custom cleanup actions.
+     */
+    protected void onFinishPluginRequested() {
+        openMainCamera();
+        finishPlugin(ExitStatus.SUCCESS, "OK");
     }
 
     // Controlling LEDs
