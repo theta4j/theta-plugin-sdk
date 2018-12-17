@@ -26,7 +26,7 @@ plugins {
     id("com.jfrog.bintray") version "1.8.4"
 }
 
-version = "0.0.1"
+version = "0.0.2"
 
 android {
     compileSdkVersion(25)
@@ -59,7 +59,7 @@ tasks {
 bintray {
     user = System.getenv("BINTRAY_USER")
     key = System.getenv("BINTRAY_KEY")
-    setPublications("mavenAAR")
+    setPublications("maven")
     pkg.apply {
         userOrg = "theta4j"
         repo = "maven"
@@ -76,7 +76,7 @@ bintray {
 
 publishing {
     publications {
-        create<MavenPublication>("mavenAAR") {
+        create<MavenPublication>("maven") {
             from(components["android"])
             groupId = "org.theta4j"
             artifactId = "theta-plugin-sdk"
