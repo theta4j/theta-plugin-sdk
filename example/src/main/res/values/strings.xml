@@ -12,4 +12,6 @@
     <string name="label_speaker">Speaker</string>
     <string name="label_ring">Ring</string>
     <string name="label_wifi">Wi-Fi</string>
+    <string name="label_other">Other</string>
+    <string name="label_throw_runtime_exception">throw RuntimeException</string>
 </resources>

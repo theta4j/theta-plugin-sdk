@@ -78,6 +78,11 @@ class MainActivity : ThetaPluginActivity() {
                 setWLanMode(spinner_wlan_mode.selectedItem as WLanMode)
             }
         }
+
+        // Other
+        button_throw_runtime_exception.setOnClickListener {
+            throw RuntimeException("RuntimeException for test")
+        }
     }
 
     @SuppressLint("SetTextI18n")

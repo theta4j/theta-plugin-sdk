@@ -26,12 +26,15 @@ import android.os.Bundle;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import java.util.List;
 import java.util.Locale;
 
 public abstract class ThetaPluginActivity extends Activity {
+    private static final String TAG = "THETA_PLUGIN_SDK";
+
     private final BroadcastReceiver mKeyEventReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -64,6 +67,7 @@ public abstract class ThetaPluginActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
+            Log.e(TAG, "Uncaught Exception", throwable);
             final String message = String.format(Locale.US,
                     "Uncaught Exception thread:%s, message:%s", thread.getName(), throwable.toString());
             finishPlugin(ExitStatus.FAILURE, message);
