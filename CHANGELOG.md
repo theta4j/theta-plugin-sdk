@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.0.3
+
+* Call printStackTrace of uncaught exception.
+
 ## v0.0.2
 
 * Support onKeyLongPress event.

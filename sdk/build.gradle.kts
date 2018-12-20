@@ -26,7 +26,7 @@ plugins {
     id("com.jfrog.bintray") version "1.8.4"
 }
 
-version = "0.0.2"
+version = "0.0.3"
 
 android {
     compileSdkVersion(25)
