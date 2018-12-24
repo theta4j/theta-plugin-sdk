@@ -16,8 +16,8 @@
 
 package org.theta4j.plugin.example
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.AdapterView
@@ -26,6 +26,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.theta4j.plugin.*
 
 class MainActivity : ThetaPluginActivity() {
+    companion object {
+        private val TAG = "THETA_PLUGIN_SDK"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -85,43 +89,23 @@ class MainActivity : ThetaPluginActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
-        val codeLabel = keyCodeToLabel(event!!.keyCode)
-        val actionLabel = keyActionToLabel(event.action)
-        text_dispatch_key_event.text = "$codeLabel $actionLabel"
+        Log.d(TAG, "dispatchKeyEvent($event)")
         return super.dispatchKeyEvent(event)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        text_on_key_down_event.text = keyCodeToLabel(keyCode)
+        Log.d(TAG, "onKeyDown($keyCode, $event)")
         return super.onKeyDown(keyCode, event)
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-        text_on_key_up_event.text = keyCodeToLabel(keyCode)
+        Log.d(TAG, "onKeyUp($keyCode, $event)")
         return super.onKeyUp(keyCode, event)
     }
 
     override fun onKeyLongPress(keyCode: Int, event: KeyEvent?): Boolean {
-        text_on_key_long_press_event.text = keyCodeToLabel(keyCode)
+        Log.d(TAG, "onKeyLongPress($keyCode, $event)")
         return super.onKeyLongPress(keyCode, event)
-    }
-
-    private fun keyActionToLabel(action: Int): String {
-        return when (action) {
-            KeyEvent.ACTION_DOWN -> "Down"
-            KeyEvent.ACTION_UP -> "UP"
-            else -> "$action"
-        }
-    }
-
-    private fun keyCodeToLabel(code: Int): String {
-        return when (code) {
-            ThetaIntent.KEY_CODE_SHUTTER -> "Shutter"
-            ThetaIntent.KEY_CODE_MODE -> "Mode"
-            ThetaIntent.KEY_CODE_WIRELESS -> "Wireless"
-            else -> "$code"
-        }
     }
 }

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">THETA Plug-in Example</string>
-    <string name="label_dispatch_key_event">dispatchKeyEvent</string>
-    <string name="label_on_key_down_event">onKeyDown</string>
-    <string name="label_on_key_long_press_event">onKeyLongPress</string>
-    <string name="label_on_key_up_event">onKeyUp</string>
+    <string name="label_key_event">See Logcat for the key\'s event.</string>
     <string name="label_led">LED</string>
     <string name="label_show_led">Show</string>
     <string name="label_blink_led">Blink</string>
