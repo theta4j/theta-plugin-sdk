@@ -42,7 +42,9 @@ public abstract class ThetaPluginActivity extends Activity {
             final int keyCode = intent.getIntExtra(ThetaIntent.EXTRA_KEY_CODE, -1);
             final KeyEvent keyEvent = intent.getParcelableExtra(ThetaIntent.EXTRA_KEY_EVENT);
 
-            dispatchKeyEvent(keyEvent);
+            if (dispatchKeyEvent(keyEvent)) {
+                return;
+            }
 
             if (ThetaIntent.ACTION_KEY_DOWN.equals(action)) {
                 onKeyDown(keyCode, keyEvent);
@@ -92,6 +94,26 @@ public abstract class ThetaPluginActivity extends Activity {
     }
 
     // Key Event
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return false;
+    }
+
+    @Override
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+        return false;
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return false;
+    }
 
     /**
      * Called when a mode button long pressed.
