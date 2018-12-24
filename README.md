@@ -12,6 +12,6 @@ repositories {
 
 dependencies {
     ...
-    implementation 'org.theta4j:theta-plugin-sdk:theta:0.0.3' // insert this line
+    implementation 'org.theta4j:theta-plugin-sdk:theta:0.0.4' // insert this line
 }
 ```

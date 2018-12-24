@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.0.4
+
+* Skip onKeyDown and onKeyUp event when dispatchKeyEvent returns true.
+
 ## v0.0.3
 
 * Call printStackTrace of uncaught exception.
