@@ -15,7 +15,6 @@
  */
 
 import org.jetbrains.kotlin.config.KotlinCompilerVersion
-import java.util.Date
 
 plugins {
     id("com.android.library")
@@ -29,13 +28,14 @@ plugins {
 version = "0.0.4"
 
 android {
-    compileSdkVersion(25)
+    compileSdkVersion(28)
     defaultConfig {
         minSdkVersion(25)
+        targetSdkVersion(28)
     }
     compileOptions {
-        setSourceCompatibility(JavaVersion.VERSION_1_8)
-        setTargetCompatibility(JavaVersion.VERSION_1_8)
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
@@ -46,19 +46,54 @@ tasks {
     }
     create<Javadoc>("javadoc") {
         source(android.sourceSets["main"].java.srcDirs)
-        classpath += project.files(android.bootClasspath.joinToString(File.pathSeparator))
+        classpath += files(android.bootClasspath.joinToString(File.pathSeparator))
     }
     create<Jar>("javadocJar") {
-        val javadoc = tasks["javadoc"] as Javadoc
+        val javadoc = project.tasks["javadoc"] as Javadoc
         dependsOn(javadoc)
         from(javadoc.destinationDir)
         classifier = "javadoc"
     }
 }
 
+publishing {
+    publications.create<MavenPublication>("maven") {
+        from(components["android"])
+        groupId = "org.theta4j"
+        artifactId = "theta-plugin-sdk"
+        version = project.version as String
+        artifact(tasks["sourceJar"])
+        artifact(tasks["javadocJar"])
+        pom {
+            name.set("THETA Plug-in SDK")
+            description.set("Utilities for RICOH THETA Plug-in API")
+            url.set("https://github.com/theta4j/theta-plugin-sdk")
+            licenses {
+                license {
+                    name.set("The Apache License, Version 2.0")
+                    url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                }
+                developers {
+                    developer {
+                        name.set("theta4j Project")
+                        email.set("info@theta4j.org")
+                    }
+                }
+                scm {
+                    url.set("https://github.com/theta4j/theta-plugin-sdk.git")
+                }
+            }
+        }
+    }
+
+    repositories.maven {
+        url = uri("$buildDir/repo")
+    }
+}
+
 bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_KEY")
+    user = properties["bintray.user"]?.toString().orEmpty()
+    key = properties["bintray.key"]?.toString().orEmpty()
     setPublications("maven")
     pkg.apply {
         userOrg = "theta4j"
@@ -68,28 +103,13 @@ bintray {
         vcsUrl = "https://github.com/theta4j/theta-plugin-sdk.git"
         version.apply {
             name = project.version as String
-            released = Date().toString()
             vcsTag = "v${project.version}"
-        }
-    }
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            from(components["android"])
-            groupId = "org.theta4j"
-            artifactId = "theta-plugin-sdk"
-            version = project.version as String
-            artifact(tasks["sourceJar"])
-            artifact(tasks["javadocJar"])
-        }
-    }
-
-    repositories {
-        maven {
-            // change to point to your repo, e.g. http://my.org/repo
-            url = uri("$buildDir/repo")
+            gpg.sign = true
+            mavenCentralSync.apply {
+                sync = true
+                user = properties["ossrh.user"]?.toString().orEmpty()
+                password = properties["ossrh.password"]?.toString().orEmpty()
+            }
         }
     }
 }

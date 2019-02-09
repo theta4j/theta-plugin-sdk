@@ -1,6 +1,6 @@
 # theta-plugin-sdk
 
-The utilities for [RICOH THETA Plug-in API](https://api.ricoh/docs/theta-plugin/)
+Utilities for [RICOH THETA Plug-in API](https://api.ricoh/docs/theta-plugin/)
 
 Modify your build.gradle to use this library.
 
