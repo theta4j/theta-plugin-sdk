@@ -42,10 +42,11 @@ class MainActivity : ThetaPluginActivity() {
                 addAll(LEDColor.values().toList())
             }
         }
+        spinner_led_period.adapter = ArrayAdapter<Int>(applicationContext, android.R.layout.simple_list_item_1, arrayOf(null, 300, 2000))
         button_show_led.setOnClickListener {
             val target = spinner_led_target.selectedItem as LEDTarget
             val color = spinner_led_color.selectedItem as LEDColor?
-            if (target == LEDTarget.LED3 && color != null) {
+            if (color != null) {
                 showLED(target, color)
             } else {
                 showLED(target)
@@ -54,8 +55,13 @@ class MainActivity : ThetaPluginActivity() {
         button_blink_led.setOnClickListener {
             val target = spinner_led_target.selectedItem as LEDTarget
             val color = spinner_led_color.selectedItem as LEDColor?
-            if (target == LEDTarget.LED3 && color != null) {
+            val period = spinner_led_period.selectedItem as Int?
+            if (color != null && period != null) {
+                blinkLED(target, color, period)
+            } else if (color != null && period == null) {
                 blinkLED(target, color)
+            } else if (color == null && period != null) {
+                blinkLED(target, period)
             } else {
                 blinkLED(target)
             }
@@ -75,7 +81,7 @@ class MainActivity : ThetaPluginActivity() {
         spinner_wlan_mode.adapter = ArrayAdapter<WLanMode>(applicationContext, android.R.layout.simple_list_item_1, WLanMode.values())
         spinner_wlan_mode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                //throw AssertionError("spinner can not select nothing")
+                // ignore
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

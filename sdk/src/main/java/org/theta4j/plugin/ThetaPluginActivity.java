@@ -153,6 +153,13 @@ public abstract class ThetaPluginActivity extends Activity {
         sendBroadcast(intent);
     }
 
+    public final void blinkLED(@NonNull LEDTarget target, @IntRange(from = 1, to = 2000) int period) {
+        final Intent intent = new Intent(ThetaIntent.ACTION_LED_BLINK);
+        intent.putExtra(ThetaIntent.EXTRA_LED_TARGET, target.getValue());
+        intent.putExtra(ThetaIntent.EXTRA_LED_PERIOD, period);
+        sendBroadcast(intent);
+    }
+
     public final void blinkLED(@NonNull LEDTarget target, @NonNull LEDColor color, @IntRange(from = 1, to = 2000) int period) {
         final Intent intent = new Intent(ThetaIntent.ACTION_LED_BLINK);
         intent.putExtra(ThetaIntent.EXTRA_LED_TARGET, target.getValue());
